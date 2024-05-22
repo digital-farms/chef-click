@@ -18,12 +18,14 @@ body {
 }
 
 .button {
+    width: 50px; /* Установите ширину кнопки */
+    height: 50px; /* Установите высоту кнопки */
     position: absolute;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
     background-color: #ff6347;
     color: #fff;
     transition: background-color 0.3s;
@@ -35,13 +37,15 @@ body {
 
 /* Пример позиционирования кнопок */
 #clickButton {
-    top: 50%;
+    top: 40%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    width: 150px; /* Установите ширину кнопки */
+    height: 150px; /* Установите высоту кнопки */
+    transform: translate(-49%, -53%);
 }
 
 #autoClickerButton {
-    top: 60%;
+    top: 62%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
