@@ -14,11 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const coinCountElement = document.getElementById('coinCount');
     const totalCoinsElement = document.getElementById('totalCoins');
     const autoClickerCountElement = document.getElementById('autoClickerCount');
-    const autoClickerPriceElement = document.getElementById('autoClickerPrice');
     const clickLevelElement = document.getElementById('clickLevel');
-    const upgradeClickPriceElement = document.getElementById('upgradeClickPrice');
-    const autoClickerLevelElement = document.getElementById('autoClickerLevel');
-    const upgradeAutoClickerPriceElement = document.getElementById('upgradeAutoClickerPrice');
     const levelElement = document.getElementById('level');
     const experienceElement = document.getElementById('experience');
     const experienceToNextLevelElement = document.getElementById('experienceToNextLevel');
@@ -27,11 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         coinCountElement.textContent = coinCount;
         totalCoinsElement.textContent = totalCoins;
         autoClickerCountElement.textContent = autoClickerCount;
-        autoClickerPriceElement.textContent = autoClickerPrice;
         clickLevelElement.textContent = clickLevel;
-        upgradeClickPriceElement.textContent = upgradeClickPrice;
-        autoClickerLevelElement.textContent = autoClickerLevel;
-        upgradeAutoClickerPriceElement.textContent = upgradeAutoClickerPrice;
         levelElement.textContent = level;
         experienceElement.textContent = experience;
         experienceToNextLevelElement.textContent = experienceToNextLevel;
@@ -59,6 +51,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function showCoinPopup(amount, x, y) {
+        const popup = document.createElement('div');
+        popup.className = 'coin-popup';
+        popup.textContent = `+${amount}`;
+        popup.style.left = `${x}px`;
+        popup.style.top = `${y}px`;
+        document.body.appendChild(popup);
+
+        setTimeout(() => {
+            popup.remove();
+        }, 2000);
+    }
+
     document.getElementById('clickButton').addEventListener('click', (e) => {
         e.preventDefault();
         coinCount += clickLevel;
@@ -67,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         checkLevelUp();
         updateDisplay();
         saveProgress();
+        const rect = e.target.getBoundingClientRect();
+        showCoinPopup(clickLevel, rect.left + rect.width / 2, rect.top);
     });
 
     document.getElementById('autoClickerButton').addEventListener('click', (e) => {
@@ -108,24 +115,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    setInterval(() => {
+    function autoClick() {
         coinCount += autoClickerCount * autoClickerLevel;
         totalCoins += autoClickerCount * autoClickerLevel;
         experience += autoClickerCount * autoClickerLevel;
         checkLevelUp();
         updateDisplay();
         saveProgress();
-    }, 1000);
+    }
 
-    // Disable zoom on double-tap
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(event) {
-        const now = (new Date()).getTime();
-        if (now - lastTouchEnd <= 300) {
-            event.preventDefault();
-        }
-        lastTouchEnd = now;
-    }, false);
+    setInterval(autoClick, 1000);
 
     updateDisplay();
 });

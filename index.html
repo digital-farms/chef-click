@@ -8,22 +8,20 @@
 </head>
 <body>
     <div class="container">
-        <h1>NotCoin Clicker</h1>
-        <button id="clickButton">Заработать монеты</button>
-        <p>Монет: <span id="coinCount">0</span></p>
-        <button id="autoClickerButton">Купить авто-кликер (Цена: <span id="autoClickerPrice">10</span>)</button>
-        <p>Авто-кликеры: <span id="autoClickerCount">0</span></p>
+        <button id="clickButton" class="button">Заработать монеты</button>
+        <button id="autoClickerButton" class="button">Купить авто-кликер</button>
+        <button id="upgradeClickButton" class="button">Улучшить клик</button>
+        <button id="upgradeAutoClickerButton" class="button">Улучшить авто-кликер</button>
         
-        <h2>Улучшения</h2>
-        <button id="upgradeClickButton">Улучшить клик (Цена: <span id="upgradeClickPrice">50</span>)</button>
-        <p>Уровень клика: <span id="clickLevel">1</span></p>
-        <button id="upgradeAutoClickerButton">Улучшить авто-кликер (Цена: <span id="upgradeAutoClickerPrice">100</span>)</button>
-        <p>Уровень авто-кликера: <span id="autoClickerLevel">1</span></p>
-        
-        <h2>Прогресс</h2>
-        <p>Всего монет: <span id="totalCoins">0</span></p>
-        <p>Уровень: <span id="level">1</span></p>
-        <p>Опыт: <span id="experience">0</span> / <span id="experienceToNextLevel">100</span></p>
+        <div class="info">
+            <p>Монет: <span id="coinCount">0</span></p>
+            <p>Авто-кликеры: <span id="autoClickerCount">0</span></p>
+            <p>Уровень клика: <span id="clickLevel">1</span></p>
+            <p>Уровень авто-кликера: <span id="autoClickerLevel">1</span></p>
+            <p>Всего монет: <span id="totalCoins">0</span></p>
+            <p>Уровень: <span id="level">1</span></p>
+            <p>Опыт: <span id="experience">0</span> / <span id="experienceToNextLevel">100</span></p>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
