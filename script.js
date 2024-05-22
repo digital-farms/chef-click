@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
-    let coinCount = 0;
-    let totalCoins = 0;
-    let autoClickerCount = 0;
-    let autoClickerPrice = 10;
-    let clickLevel = 1;
-    let upgradeClickPrice = 50;
-    let autoClickerLevel = 1;
-    let upgradeAutoClickerPrice = 100;
-    let level = 1;
-    let experience = 0;
-    let experienceToNextLevel = 100;
+    let coinCount = parseInt(localStorage.getItem('coinCount')) || 0;
+    let totalCoins = parseInt(localStorage.getItem('totalCoins')) || 0;
+    let autoClickerCount = parseInt(localStorage.getItem('autoClickerCount')) || 0;
+    let autoClickerPrice = parseInt(localStorage.getItem('autoClickerPrice')) || 10;
+    let clickLevel = parseInt(localStorage.getItem('clickLevel')) || 1;
+    let upgradeClickPrice = parseInt(localStorage.getItem('upgradeClickPrice')) || 50;
+    let autoClickerLevel = parseInt(localStorage.getItem('autoClickerLevel')) || 1;
+    let upgradeAutoClickerPrice = parseInt(localStorage.getItem('upgradeAutoClickerPrice')) || 100;
+    let level = parseInt(localStorage.getItem('level')) || 1;
+    let experience = parseInt(localStorage.getItem('experience')) || 0;
+    let experienceToNextLevel = parseInt(localStorage.getItem('experienceToNextLevel')) || 100;
 
     const coinCountElement = document.getElementById('coinCount');
     const totalCoinsElement = document.getElementById('totalCoins');
@@ -37,42 +37,72 @@ document.addEventListener('DOMContentLoaded', () => {
         experienceToNextLevelElement.textContent = experienceToNextLevel;
     }
 
-    document.getElementById('clickButton').addEventListener('click', () => {
+    function saveProgress() {
+        localStorage.setItem('coinCount', coinCount);
+        localStorage.setItem('totalCoins', totalCoins);
+        localStorage.setItem('autoClickerCount', autoClickerCount);
+        localStorage.setItem('autoClickerPrice', autoClickerPrice);
+        localStorage.setItem('clickLevel', clickLevel);
+        localStorage.setItem('upgradeClickPrice', upgradeClickPrice);
+        localStorage.setItem('autoClickerLevel', autoClickerLevel);
+        localStorage.setItem('upgradeAutoClickerPrice', upgradeAutoClickerPrice);
+        localStorage.setItem('level', level);
+        localStorage.setItem('experience', experience);
+        localStorage.setItem('experienceToNextLevel', experienceToNextLevel);
+    }
+
+    function checkLevelUp() {
+        while (experience >= experienceToNextLevel) {
+            experience -= experienceToNextLevel;
+            level++;
+            experienceToNextLevel = Math.floor(experienceToNextLevel * 1.5);
+        }
+    }
+
+    document.getElementById('clickButton').addEventListener('click', (e) => {
+        e.preventDefault();
         coinCount += clickLevel;
         totalCoins += clickLevel;
         experience += clickLevel;
         checkLevelUp();
         updateDisplay();
+        saveProgress();
     });
 
-    document.getElementById('autoClickerButton').addEventListener('click', () => {
+    document.getElementById('autoClickerButton').addEventListener('click', (e) => {
+        e.preventDefault();
         if (coinCount >= autoClickerPrice) {
             coinCount -= autoClickerPrice;
             autoClickerCount++;
             autoClickerPrice = Math.floor(autoClickerPrice * 1.5);
             updateDisplay();
+            saveProgress();
         } else {
             alert('Недостаточно монет для покупки авто-кликера!');
         }
     });
 
-    document.getElementById('upgradeClickButton').addEventListener('click', () => {
+    document.getElementById('upgradeClickButton').addEventListener('click', (e) => {
+        e.preventDefault();
         if (coinCount >= upgradeClickPrice) {
             coinCount -= upgradeClickPrice;
             clickLevel++;
             upgradeClickPrice = Math.floor(upgradeClickPrice * 2);
             updateDisplay();
+            saveProgress();
         } else {
             alert('Недостаточно монет для улучшения клика!');
         }
     });
 
-    document.getElementById('upgradeAutoClickerButton').addEventListener('click', () => {
+    document.getElementById('upgradeAutoClickerButton').addEventListener('click', (e) => {
+        e.preventDefault();
         if (coinCount >= upgradeAutoClickerPrice) {
             coinCount -= upgradeAutoClickerPrice;
             autoClickerLevel++;
             upgradeAutoClickerPrice = Math.floor(upgradeAutoClickerPrice * 2);
             updateDisplay();
+            saveProgress();
         } else {
             alert('Недостаточно монет для улучшения авто-кликера!');
         }
@@ -84,15 +114,18 @@ document.addEventListener('DOMContentLoaded', () => {
         experience += autoClickerCount * autoClickerLevel;
         checkLevelUp();
         updateDisplay();
+        saveProgress();
     }, 1000);
 
-    function checkLevelUp() {
-        while (experience >= experienceToNextLevel) {
-            experience -= experienceToNextLevel;
-            level++;
-            experienceToNextLevel = Math.floor(experienceToNextLevel * 1.5);
+    // Disable zoom on double-tap
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
         }
-    }
+        lastTouchEnd = now;
+    }, false);
 
     updateDisplay();
 });
