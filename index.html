@@ -3,16 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chef Clicker</title>
+    <title>NotCoin Clicker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Chef Clicker</h1>
-        <button id="ingredientButton">Собрать ингредиенты</button>
-        <p>Ингредиентов: <span id="ingredientCount">0</span></p>
-        <button id="cookButton">Приготовить блюдо</button>
-        <p>Блюд приготовлено: <span id="dishCount">0</span></p>
+        <h1>NotCoin Clicker</h1>
+        <button id="clickButton">Заработать монеты</button>
+        <p>Монет: <span id="coinCount">0</span></p>
+        <button id="autoClickerButton">Купить авто-кликер (Цена: <span id="autoClickerPrice">10</span>)</button>
+        <p>Авто-кликеры: <span id="autoClickerCount">0</span></p>
+        
+        <h2>Улучшения</h2>
+        <button id="upgradeClickButton">Улучшить клик (Цена: <span id="upgradeClickPrice">50</span>)</button>
+        <p>Уровень клика: <span id="clickLevel">1</span></p>
+        <button id="upgradeAutoClickerButton">Улучшить авто-кликер (Цена: <span id="upgradeAutoClickerPrice">100</span>)</button>
+        <p>Уровень авто-кликера: <span id="autoClickerLevel">1</span></p>
+        
+        <h2>Прогресс</h2>
+        <p>Всего монет: <span id="totalCoins">0</span></p>
+        <p>Уровень: <span id="level">1</span></p>
+        <p>Опыт: <span id="experience">0</span> / <span id="experienceToNextLevel">100</span></p>
     </div>
     <script src="script.js"></script>
 </body>
