@@ -5,7 +5,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('https://github.com/digital-farms/chef-click/blob/main/BG1.png?raw=true') no-repeat center center fixed; /* Установите ваш фон */
+    background: url('BG1.png') no-repeat center center fixed; /* Установите ваш фон */
     background-size: cover;
     font-family: Arial, sans-serif;
     overflow: hidden;
